@@ -1,0 +1,5 @@
+ilw-columns {
+  ilw-accordion[width="page"] {/*this overrides the accordion width to be full width when next to the sidebar*/
+    --ilw-margin--side: 0;
+  }
+}

@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Theme override for a breadcrumb trail.
+ *
+ * Available variables:
+ * - breadcrumb: Breadcrumb trail items.
+ */
+#}
+{% if breadcrumb %}
+  <ilw-breadcrumbs width="page">
+    {% for item in breadcrumb %}
+      {% if item.url %}
+        <a href="{{ item.url }}">{{ item.text }}</a>
+      {% else %}
+        <span>{{ item.text }}</span>
+      {% endif %}
+    {% endfor %}
+  </ilw-breadcrumbs>
+{% endif %}
+

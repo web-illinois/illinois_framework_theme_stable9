@@ -1,0 +1,122 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a paragraph.
+ *
+ * Available variables:
+ * - paragraph: Full paragraph entity.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - paragraph.getCreatedTime() will return the paragraph creation timestamp.
+ *   - paragraph.id(): The paragraph ID.
+ *   - paragraph.bundle(): The type of the paragraph, for example, "image" or "text".
+ *   - paragraph.getOwnerId(): The user ID of the paragraph author.
+ *   See Drupal\paragraphs\Entity\Paragraph for a full list of public properties
+ *   and methods for the paragraph object.
+ * - content: All paragraph items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - paragraphs: The current template type (also known as a "theming hook").
+ *   - paragraphs--type-[type]: The current paragraphs type. For example, if the paragraph is an
+ *     "Image" it would result in "paragraphs--type--image". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - paragraphs--view-mode--[view_mode]: The View Mode of the paragraph; for example, a
+ *     preview would result in: "paragraphs--view-mode--preview", and
+ *     default: "paragraphs--view-mode--default".
+ * - view_mode: View mode; for example, "preview" or "full".
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @see template_preprocess_paragraph()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% set background_color = content.field_contact_background['#items'].0.value %}
+{% set layout = content.field_contact_layouts.0['#markup'] %}
+{% set image_float = content.field_contact_layouts %}
+{% if layout == 'left' %}
+  {% set text_position = 'order-0' %}
+  {% set image_body_position = 'order-first' %}
+{% else %}
+  {% set text_position = 'order-first' %}
+  {% set image_body_position = 'order-0' %}
+{% endif %}
+{% set button_number = content.field_contact_content.0['#paragraph'].field_contact_content_button|length %}
+{% set paragraph_title = content.field_contact_title['#items'].0.value %}
+{% set content_title = content.field_contact_content.0['#paragraph'].field_contact_content_title.value %}
+{% set subtitle = content.field_contact_content.0['#paragraph'].field_contact_content_subtit.value %}
+{% set address = content.field_contact_content.0['#paragraph'].field_contact_content_address.value %}
+{% set phone = content.field_contact_content.0['#paragraph'].field_contact_content_phone.value %}
+{% set email = content.field_contact_content.0['#paragraph'].field_contact_content_email.value %}
+{%
+  set classes = [
+  'paragraph',
+  'il-formatted',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  not paragraph.isPublished() ? 'paragraph--unpublished',
+  'il-formatting col-lg-12 col-md-12 col-sm-12 full-width ' ~ 'background--color--' ~ background_color
+]
+%}
+
+{% block paragraph %}
+  {# Paragraph ID used for anchor linking #}
+  <div {{ attributes.setAttribute('id', 'paragraph--' ~ paragraph.id() ) }} {{ attributes.addClass(classes) }}>
+    {% block content %}
+      {% if content.field_contact_title['#items'] %}
+        <div class="col-lg-12 paragraph--type--contact__title">
+          <h2>{{ paragraph_title }}</h2>
+        </div>
+      {% endif %}
+      <div class="row col-lg-12 col-md-12 fixed-width">
+        <div class="field--name-field-contact__content__wrapper col-lg-6 col-md-12 col-sm-12 flex-column {{ text_position }} {{ layout }}">
+            <div class="field--name-field-contact__content__title">{{ content_title }}</div>
+            {% if subtitle %}
+              <div class="field--name-field-contact__content__subtitle">{{ subtitle }}</div>
+            {% endif %}
+            {% if address %}
+              <div class="field--name-field-contact__content__address"><address>{{ address|raw }}</address></div>
+            {% endif %}
+            {% if phone %}
+              <div class="field--name-field-contact__content__phone"><p><a href="tel:{{ phone }}">{{ phone }}</a></p></div>
+            {% endif %}
+            {% if email %}
+              <div class="field--name-field-contact__content__email"><p><a href="mailto:{{ email }}">{{ email }}</a></p></div>
+            {% endif %}
+            {% if button_number > 0 %}
+              <div class="field--name-field-contact__content__button {% if button_number == 2 %} field--name-field-contact__content__button--two {% endif %}">
+                {% for item in content.field_contact_content.0['#paragraph'].field_contact_content_button %}
+                  <div class="field--name-field-contact__content__button--{{ loop.index0 }}">
+                    <a class="il-button {% if background_color == 'gray' %}il-blue{% else %}il-orange{% endif %}" href="{{ content.field_contact_content.0['#paragraph'].field_contact_content_button[loop.index0].uri }}" role="button">{{ content.field_contact_content.0['#paragraph'].field_contact_content_button[loop.index0].title }}</a>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        {% if content.field_contact_content.0['#paragraph'].field_contact_content_body.0.value %}
+        <div class="field--name-field-contact__content__body__wrapper col-lg-6 col-md-12 col-sm-12 {{ image_body_position}}">
+          <div class="{{ layout }}">
+            {{ content.field_contact_content.0['#paragraph'].field_contact_content_body.0.value|raw }}
+          </div>
+        </div>
+        {% elseif content.field_contact_content.0['#paragraph'].field_contact_content_image.0 %}
+        <div class="field--name-field-contact__content__image__wrapper col-lg-6 col-md-12 col-sm-12 {{ image_body_position }} {{ layout }}">
+  {#        <div class="{{ layout }}">#}
+            <img alt="{{ content.field_contact_content.0['#paragraph'].field_contact_content_image.alt }}" title="{{ content.field_contact_content.0['#paragraph'].field_contact_content_image.title }}" src="{{ base_path_http ~ file_url(content.field_contact_content.0['#paragraph'].field_contact_content_image.0.entity.uri.value) }}"/>
+  {#        </div>#}
+        </div>
+        {% else %}
+          <div class="alert alert-danger" role="alert">Please go back and add an image or body text</div>
+        {% endif %}
+      </div>
+    {% endblock %}
+  </div>
+{% endblock paragraph %}

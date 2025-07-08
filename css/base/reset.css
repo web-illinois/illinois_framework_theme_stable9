@@ -1,0 +1,32 @@
+body {
+  margin: 0;
+  font: 400 1.125rem/1.667rem var(--il-font-sans);
+  color: var(--ilw-text--color);
+}
+ilw-columns {
+  overflow-x: hidden;
+}
+a {
+  color: var(--ilw-link--color);
+  text-decoration: underline;
+  cursor:pointer
+}
+a:visited {
+  color:var(--ilw-link--visited-color)
+}
+a:hover {
+  color:var(--ilw-link--focused-color)
+}
+a:focus {
+  background-color:var(--ilw-link--focus-background-color);
+  color:var(--ilw-link--focus-color);
+  outline:var(--ilw-link--focus-outline)
+}
+img {
+  vertical-align: middle;
+  border-style: none;
+  height: auto;
+  max-width: 100%;
+}
+
+

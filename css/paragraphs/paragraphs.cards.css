@@ -1,0 +1,22 @@
+:root {
+  --ilw-card--font: var(--il-font-sans);
+}
+ilw-card {
+  max-width: 400px;
+  margin: 0 auto;
+  h3, p {
+    font-family: var(--ilw-card--font);
+  }
+}
+.paragraph--type--cards {
+  ilw-grid {
+    margin: 0 auto;
+  }
+}
+
+ilw-columns {
+  ilw-grid[width="page"] {/*this overrides the cards width to be full width when next to the sidebar*/
+    --ilw-margin--side: 0;
+  }
+}
+

@@ -1,0 +1,99 @@
+# Main theme library.
+global:
+  js:
+    https://emergency.publicaffairs.illinois.edu/illinois.js:
+      type: external
+      attributes:
+        async: true
+    https://enroll.illinois.edu/ping:
+      type: external
+      attributes:
+        async: true
+    js/search.js: { }
+    js/side-nav-title-append.js: { }
+    js/paragraph-whitespace.js: { }
+  dependencies:
+    - core/jquery
+  css:
+    theme:
+      css/style.css: {}
+      fonts/font-awesome-4.7.0/css/font-awesome.css: { }
+      fonts/font-awesome-4.7.0/css/illinois-icons.css: { }
+      css/theme/print.css: { media: print }
+    base:
+      css/base/elements.css: {}
+    component:
+      css/component/block.css: {}
+      css/component/breadcrumb.css: {}
+      css/component/field.css: {}
+      css/component/form.css: {}
+      css/component/header.css: {}
+      css/component/menu.css: {}
+      css/component/messages.css: {}
+      css/component/node.css: {}
+      css/component/sidebar.css: {}
+      css/component/table.css: {}
+      css/component/tabs.css: {}
+      css/component/buttons.css: {}
+    layout:
+      css/layout/layout.css: {}
+web-components:
+  header: true
+  css:
+    theme:
+      https://cdn.toolkit.illinois.edu/3/toolkit.css:
+        type: external
+        minified: true
+  js:
+    https://cdn.toolkit.illinois.edu/3/toolkit.js:
+      type: external
+      minified: true
+      attributes:
+        type: module
+        blocking: render
+ils-contentslider:
+  header: true
+  css:
+    theme:
+      https://contrib.webtheme.illinois.edu/ils-contentslider/contentslider.min.css:
+        type: external
+        minified: true
+  js:
+    https://contrib.webtheme.illinois.edu/ils-contentslider/contentslider.min.js:
+      type: external
+      minified: true
+content-adjust:
+  js:
+    js/content.js: {}
+paragraph--hero--section:
+  js:
+    js/paragraph--hero--section.js: {}
+  dependencies:
+    - core/jquery
+google-cse:
+  js:
+    js/google-cse.js: { attributes: { async: true } }
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+ils-forms:
+  css:
+    theme:
+      https://contrib.webtheme.illinois.edu/ils-input/input3.min.css:
+        type: external
+        minified: true
+  js:
+    https://contrib.webtheme.illinois.edu/ils-input/input3.min.js:
+      type: external
+      minified: true
+ilw-tooltip:
+  css:
+    theme:
+      https://dev.toolkit.illinois.edu/ilw-tooltip/1.0.0-alpha/ilw-tooltip.css:
+        type: external
+        minified: true
+  js:
+    https://dev.toolkit.illinois.edu/ilw-tooltip/1.0.0-alpha/ilw-tooltip.js:
+      type: external
+      minified: true
+

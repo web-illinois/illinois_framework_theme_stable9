@@ -1,0 +1,147 @@
+<?php
+
+declare(strict_types=1);
+
+use Drupal\Core\Url;
+use Drupal\block\Entity\Block;
+use Drupal\Core\Site\Settings;
+use Drupal\Core\Template\Attribute;
+
+function illinois_framework_theme_stable9_preprocess(&$variables) {
+
+  // path variables
+  // TODO: condense these into a single array like ['path_vars']['var']
+  $current_path = \Drupal::service('path.current')->getPath();
+  $canoncial_url = Url::fromRoute('<current>', [], ['absolute' => 'true'])->toString();
+  $base_path = \Drupal::request()->getHost();
+  $base_path_http = \Drupal::request()->getSchemeAndHttpHost();
+  $theme_path = \Drupal::theme()->getActiveTheme()->getPath();
+  $variables['current_uri'] = \Drupal::request()->getRequestUri();
+  $variables['canoncial_url'] = $canoncial_url;
+  $variables['current_path'] = $current_path;
+  $variables['base_path'] = $base_path;
+  $variables['base_path_http'] = $base_path_http;
+  $variables['base_path_success'] = (array_key_exists('HTTPS', $_SERVER) ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].'/';
+  $variables['theme_path'] = $theme_path;
+  $variables['files_path'] = $base_path_http . '/sites/' . $base_path . '/files/';
+  $variables['#attached']['drupalSettings']['google_cse']['google_api'] = Settings::get('google_api', 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+
+  // theme variables
+  $variables['if_secondary_site_title'] = theme_get_setting('if_secondary_site_title');
+  $variables['if_secondary_site_link'] = theme_get_setting('if_secondary_site_link');
+  $variables['if_header_links'][0][0] = theme_get_setting('if_header_text_1');
+  $variables['if_header_links'][0][1] = theme_get_setting('if_header_link_1');
+  $variables['if_header_links'][1][0] = theme_get_setting('if_header_text_2');
+  $variables['if_header_links'][1][1] = theme_get_setting('if_header_link_2');
+  $variables['if_header_links'][2][0] = theme_get_setting('if_header_text_3');
+  $variables['if_header_links'][2][1] = theme_get_setting('if_header_link_3');
+  $variables['if_footer']['if_footer_address']['if_footer_address_unit'] = theme_get_setting('if_footer_address_unit');
+  $variables['if_footer']['if_footer_address']['if_footer_address_street_one'] = theme_get_setting('if_footer_address_street_one');
+  $variables['if_footer']['if_footer_address']['if_footer_address_street_two'] = theme_get_setting('if_footer_address_street_two');
+  $variables['if_footer']['if_footer_address']['if_footer_address_city'] = theme_get_setting('if_footer_address_city');
+  $variables['if_footer']['if_footer_address']['if_footer_address_state'] = theme_get_setting('if_footer_address_state');
+  $variables['if_footer']['if_footer_address']['if_footer_address_zip'] = theme_get_setting('if_footer_address_zip');
+  $variables['if_footer']['if_footer_address']['if_footer_address_tel'] = theme_get_setting('if_footer_address_tel');
+  $variables['if_footer']['if_footer_address']['if_footer_address_email'] = theme_get_setting('if_footer_address_email');
+  $variables['if_footer']['if_footer_social']['if_footer_social_facebook'] = theme_get_setting('if_footer_social_facebook');
+  $variables['if_footer']['if_footer_social']['if_footer_social_twitter'] = theme_get_setting('if_footer_social_twitter');
+  $variables['if_footer']['if_footer_social']['if_footer_social_instagram'] = theme_get_setting('if_footer_social_instagram');
+  $variables['if_footer']['if_footer_social']['if_footer_social_youtube'] = theme_get_setting('if_footer_social_youtube');
+  $variables['if_footer']['if_footer_social']['if_footer_social_linkedin'] = theme_get_setting('if_footer_social_linkedin');
+  $variables['if_footer_colleges'][0][0] = theme_get_setting('if_footer_college_text_1');
+  $variables['if_footer_colleges'][0][1] = theme_get_setting('if_footer_college_link_1');
+  $variables['if_footer_colleges'][1][0] = theme_get_setting('if_footer_college_text_2');
+  $variables['if_footer_colleges'][1][1] = theme_get_setting('if_footer_college_link_2');
+  $variables['if_footer_colleges'][2][0] = theme_get_setting('if_footer_college_text_3');
+  $variables['if_footer_colleges'][2][1] = theme_get_setting('if_footer_college_link_3');
+  $variables['if_footer_colleges'][3][0] = theme_get_setting('if_footer_college_text_4');
+  $variables['if_footer_colleges'][3][1] = theme_get_setting('if_footer_college_link_4');
+  $variables['if_footer_colleges'][4][0] = theme_get_setting('if_footer_college_text_5');
+  $variables['if_footer_colleges'][4][1] = theme_get_setting('if_footer_college_link_5');
+  $variables['if_footer_colleges']['if_footer_colleges_one'] = theme_get_setting('if_footer_colleges_one');
+
+
+  $variables['if_footer']['if_footer_menu_block_checkbox'] = theme_get_setting('if_footer_menu_block_checkbox');
+  $variables['if_subfooter'][0][0] = theme_get_setting('if_subfooter_text_1');
+  $variables['if_subfooter'][0][1] = theme_get_setting('if_subfooter_link_1');
+  $variables['if_subfooter'][1][0] = theme_get_setting('if_subfooter_text_2');
+  $variables['if_subfooter'][1][1] = theme_get_setting('if_subfooter_link_2');
+  $variables['if_subfooter'][2][0] = theme_get_setting('if_subfooter_text_3');
+  $variables['if_subfooter'][2][1] = theme_get_setting('if_subfooter_link_3');
+  $variables['if_subfooter'][3][0] = theme_get_setting('if_subfooter_text_4');
+  $variables['if_subfooter'][3][1] = theme_get_setting('if_subfooter_link_4');
+  $variables['if_subfooter'][4][0] = theme_get_setting('if_subfooter_text_5');
+  $variables['if_subfooter'][4][1] = theme_get_setting('if_subfooter_link_5');
+}
+
+
+/**
+ * @file
+ * Functions to support theming in the Illinois Framework Theme theme.
+ */
+function illinois_framework_theme_stable9_theme_suggestions_page_alter(&$suggestions, $vars, $hook) {
+  //provide page template suggestions per content type
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    $suggestions[] = 'page__' . $node->bundle();
+  }
+}
+/**
+ * Implements hook_preprocess_HOOK() for html.html.twig.
+ */
+function illinois_framework_theme_stable9_preprocess_html(array &$variables): void {
+
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for page.html.twig.
+ */
+function illinois_framework_theme_stable9_preprocess_page(array &$variables): void {
+
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for node.html.twig.
+ */
+function illinois_framework_theme_stable9_preprocess_node(array &$variables): void {
+
+}
+function illinois_framework_theme_stable9_preprocess_menu(&$variables) {//Add the parent item to the template for the side navigation
+  /** @var \Drupal\Core\Menu\MenuLinkManagerInterface $menu_link_manager */
+  $menu_link_manager = \Drupal::service('plugin.manager.menu.link');
+  $first = reset($variables['items']);
+  if ($first) {
+    $item = $first['original_link'];
+    // If the first item has a parent, add that parent to the template so we
+    // can render it in the same list.
+    if ($item?->getParent()) {
+      /** @var \Drupal\Core\Utility\LinkGenerator $link_generator */
+      $link_generator = \Drupal::service('link_generator');
+      $parent = $menu_link_manager->createInstance($item->getParent());
+      $variables['parent_name'] = $parent->getTitle();
+      $variables['parent_url'] = $parent->getUrlObject();
+
+      // Required for Drupal to manage the aria-current attribute
+      $variables['parent_url']->setOption('set_active_class', TRUE);
+
+      $variables['parent_url']->setOption('attributes', ['class' => 'ilw-section-nav--root']);
+
+      // Create the render array we'll use in the template
+      $variables['parent_a'] = $link_generator->generate($parent->getTitle(), $variables['parent_url']);
+    }
+  }
+}
+
+function illinois_framework_theme_stable9_preprocess_breadcrumb(&$variables) {// Add the page title to the breadcrumb
+  if ($variables['breadcrumb']) {
+    $request = \Drupal::request();
+    $route_match = \Drupal::routeMatch();
+    $page_title = \Drupal::service('title_resolver')->getTitle($request, $route_match->getRouteObject());
+
+    if (!empty($page_title)) {
+      $variables['breadcrumb'][] = [
+        'text' => $page_title,
+        'attributes' => new Attribute(['class' => ['active']])
+      ];
+    }
+  }
+}

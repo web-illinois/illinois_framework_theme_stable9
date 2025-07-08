@@ -1,0 +1,147 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a paragraph.
+ *
+ * Available variables:
+ * - paragraph: Full paragraph entity.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - paragraph.getCreatedTime() will return the paragraph creation timestamp.
+ *   - paragraph.id(): The paragraph ID.
+ *   - paragraph.bundle(): The type of the paragraph, for example, "image" or "text".
+ *   - paragraph.getOwnerId(): The user ID of the paragraph author.
+ *   See Drupal\paragraphs\Entity\Paragraph for a full list of public properties
+ *   and methods for the paragraph object.
+ * - content: All paragraph items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - paragraphs: The current template type (also known as a "theming hook").
+ *   - paragraphs--type-[type]: The current paragraphs type. For example, if the paragraph is an
+ *     "Image" it would result in "paragraphs--type--image". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - paragraphs--view-mode--[view_mode]: The View Mode of the paragraph; for example, a
+ *     preview would result in: "paragraphs--view-mode--preview", and
+ *     default: "paragraphs--view-mode--default".
+ * - view_mode: View mode; for example, "preview" or "full".
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @see template_preprocess_paragraph()
+ *
+ * @ingroup themeable
+ */
+#}
+{#
+/**
+ * @file
+ * Default theme implementation to display a paragraph.
+ *
+ * Available variables:
+ * - paragraph: Full paragraph entity.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - paragraph.getCreatedTime() will return the paragraph creation timestamp.
+ *   - paragraph.id(): The paragraph ID.
+ *   - paragraph.bundle(): The type of the paragraph, for example, "image" or "text".
+ *   - paragraph.getOwnerId(): The user ID of the paragraph author.
+ *   See Drupal\paragraphs\Entity\Paragraph for a full list of public properties
+ *   and methods for the paragraph object.
+ * - content: All paragraph items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - paragraphs: The current template type (also known as a "theming hook").
+ *   - paragraphs--type-[type]: The current paragraphs type. For example, if the paragraph is an
+ *     "Image" it would result in "paragraphs--type--image". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - paragraphs--view-mode--[view_mode]: The View Mode of the paragraph; for example, a
+ *     preview would result in: "paragraphs--view-mode--preview", and
+ *     default: "paragraphs--view-mode--default".
+ * - view_mode: View mode; for example, "preview" or "full".
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @see template_preprocess_paragraph()
+ *
+ * @ingroup themeable
+ */
+#}
+{% if content.field_cards_background['#items'].0.value == 'white' %}
+  {% set background_color = 'white' %}
+{% else %}
+  {% set background_color = 'blue' %}
+{% endif %}
+{% set cards_count = content.field_cards_content['#items']|length %}
+
+{%
+  set classes = [
+  'paragraph',
+  'il-formatted',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  not paragraph.isPublished() ? 'paragraph--unpublished'
+]
+%}
+{% block paragraph %}
+  {# Paragraph ID used for anchor linking #}
+  <div {{ attributes.setAttribute('id', 'paragraph--' ~ paragraph.id() ) }} {{ attributes.addClass(classes) }}>
+    {% block content %}
+          {% if content.field_cards_title.0 %}
+            <ilw-content width="page" align="center">
+            <h2 class="field--name-field-cards__title title">{{ content.field_cards_title }}</h2>
+            </ilw-content>
+          {% endif %}
+          {% if content.field_cards_subtitle.0 %}
+            <ilw-content width="page">
+            <div class="field--name-field-cards__subtitle subtitle">{{ content.field_cards_subtitle }}</div>
+            </ilw-content>
+          {% endif %}
+      <ilw-grid width="page" theme="{{ content.field_cards_background['#items'].0.value }}" gap="20px">
+
+          {% for item in content.field_cards_content['#items'] %}
+            {% set image = content.field_cards_content[loop.index0]['#paragraph'].field_cards_content_image.entity.fileuri %}
+            {% if image is not empty %}
+              {% set image = image|image_style('cards_image') %}
+            {% endif %}
+            {% set image_alt = content.field_cards_content[loop.index0]['#paragraph'].field_cards_content_image.alt %}
+            {% set title = content.field_cards_content[loop.index0]['#paragraph'].field_cards_content_title.value %}
+            {% set body = content.field_cards_content[loop.index0]['#paragraph'].field_cards_content_body.value %}
+            {% set link = content.field_cards_content[loop.index0]['#paragraph'].field_cards_content_button[0] | view %}
+            {% set background = content.field_cards_background[loop.index0]['#paragraph'].field_cards_background.value %}
+
+              <ilw-card theme="{{ background_color }}" align="center">
+                {% if image %}
+                  <img src="{{ base_path_http ~ file_url(image) }}" alt="{{ image_alt }}" slot="image" />
+                {% endif %}
+                {% if title %}
+                  <h3>{{ title }}</h3>
+                {% endif %}
+                {% if body %}
+                  <p>{{ body }}</p>
+                {% endif %}
+                {% if link is not empty %}
+                  <div slot="footer">
+                    <p><a class="ilw-button" href="{{ link['#url'] | render }}">{{ link['#title'] | render }}</a></p>
+                  </div>
+                {% endif %}
+
+              </ilw-card>
+
+          {% endfor %}
+    </ilw-grid>
+    {% endblock %}
+  </div>
+{% endblock paragraph %}
+
