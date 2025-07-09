@@ -86,14 +86,7 @@ ils-forms:
     https://contrib.webtheme.illinois.edu/ils-input/input3.min.js:
       type: external
       minified: true
-ilw-tooltip:
-  css:
-    theme:
-      https://dev.toolkit.illinois.edu/ilw-tooltip/1.0.0-alpha/ilw-tooltip.css:
-        type: external
-        minified: true
+paragraph-rt:
   js:
-    https://dev.toolkit.illinois.edu/ilw-tooltip/1.0.0-alpha/ilw-tooltip.js:
-      type: external
-      minified: true
+    js/paragraph-rt.js: {}
 
