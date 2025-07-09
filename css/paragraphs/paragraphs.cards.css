@@ -1,6 +1,3 @@
-:root {
-  --ilw-card--font: var(--il-font-sans);
-}
 ilw-card {
   max-width: 400px;
   margin: 0 auto;
