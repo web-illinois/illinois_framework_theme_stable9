@@ -1,10 +1,15 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 body {
   margin: 0;
   font: 400 1.125rem/1.667rem var(--il-font-sans);
   color: var(--ilw-text--color);
 }
 ilw-columns {
-  overflow-x: hidden;
+  overflow: hidden;
 }
 a {
   color: var(--ilw-link--color);
@@ -24,9 +29,23 @@ a:focus {
 }
 img {
   vertical-align: middle;
-  border-style: none;
-  height: auto;
+}
+img,
+video,
+iframe {
   max-width: 100%;
+  height: auto;
+  display: block;
 }
 
+p, li, td, th, h1, h2, h3, h4, h5, h6 {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+/*.fixed-width {
+   margin: 0 auto;
+   padding: 0 var(--ilw-margin--side, 0);
+   width: 100%;
+ }
+ */
 

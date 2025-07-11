@@ -10,7 +10,7 @@
   --ilw-button--active-background-color: var(--il-orange);
   --ilw-button--active-border-color: var(--il-blue);
 }
-a.il-button, button.il-button, ul.il-buttons a, ul.il-buttons button {
+.il-button {
   background-color: var(--ilw-button--background-color);
   color: var(--ilw-button--foreground-color);
   border: 2px solid var(--ilw-button--border-color);
@@ -39,6 +39,7 @@ a.il-button, button.il-button, ul.il-buttons a, ul.il-buttons button {
     border-color: var(--ilw-button--focused-border-color);
     text-decoration: underline;
   }
+
   &:focus {
     background-color: var(--ilw-link--focus-background-color);
     color: var(--ilw-link--focus-color);
@@ -46,77 +47,21 @@ a.il-button, button.il-button, ul.il-buttons a, ul.il-buttons button {
     text-decoration: underline;
     outline: var(--ilw-link--focus-outline);
   }
+
   &:active {
     background-color: var(--ilw-button--active-background-color);
     color: var(--ilw-button--active-color);
     border-color: var(--ilw-button--active-border-color);
     outline: solid var(--ilw-button--active-border-color) 2px;
   }
-  &.il-orange {
-    --ilw-button--background-color: var(--il-orange);
-    --ilw-button--foreground-color: white;
-    --ilw-button--border-color: var(--il-orange);
-    --ilw-button--active-background-color: var(--il-blue);
-    --ilw-button--active-border-color: var(--il-orange);
-    --ilw-button--focused-background-color: white;
-    --ilw-button--focused-foreground-color: var(--il-orange);
-    --ilw-button--focused-border-color: var(--il-orange);
 
-
-    &:visited {
-      color: white !important;
-      --il-button-background-color: var(--il-orange) !important;
-      --il-button-foreground-color: white !important;
-      --il-button-border-color: var(--il-orange) !important;
-    }
-    &:hover,
-    &:focus {
-      color: var(--il-orange) !important;
-      --il-focused-button-background-color: white !important;
-      --il-focused-button-foreground-color: var(--il-orange) !important;
-      --il-focused-button-border-color: var(--il-orange) !important;
-    }
-  }
-}
-
-
-
-.il-button {
-  --ilw-button--background-color: var(--il-blue);
-  --ilw-button--foreground-color: white;
-  --ilw-button--border-color: var(--il-blue);
-
-  &:visited {
-    --ilw-button--background-color: var(--il-blue);
-    --ilw-button--foreground-color: white;
-    --ilw-button--border-color: var(--il-blue);
-  }
-  &:hover {
-    outline: 0;
-    background-color: var(--ilw-button--focused-background-color);
-    color: var(--ilw-button--focused-foreground-color);
-    border-color: var(--ilw-button--focused-border-color);
-    text-decoration: underline;
-  }
-  &:focus {
-    background-color: var(--ilw-link--focus-background-color);
-    color: var(--ilw-link--focus-color);
-    border-color: var(--ilw-link--focus-color);
-    text-decoration: underline;
-    outline: var(--ilw-link--focus-outline);
-  }
-  &:active {
-    background-color: var(--ilw-button--active-background-color);
-    color: var(--ilw-button--active-color);
-    border-color: var(--ilw-button--active-border-color);
-    outline: solid var(--ilw-button--active-border-color) 2px;
-  }
-}
-.il-button {
   &.il-white-blue {
-    --ilw-button--background-color: var(--il-blue);
-    --ilw-button--foreground-color: white;
+    --ilw-button--background-color: white;
+    --ilw-button--foreground-color: var(--il-blue);
     --ilw-button--border-color: var(--il-blue);
+    --ilw-button--focused-background-color: var(--il-blue);
+    --ilw-button--focused-foreground-color: white;
+    --ilw-button--focused-border-color: var(--il-blue);
   }
 
   &.il-white-orange {
@@ -132,11 +77,30 @@ a.il-button, button.il-button, ul.il-buttons a, ul.il-buttons button {
     --ilw-button--background-color: var(--il-blue);
     --ilw-button--foreground-color: white;
     --ilw-button--border-color: var(--il-blue);
+    --ilw-button--focused-background-color: white;
+    --ilw-button--focused-foreground-color: var(--il-blue);
+    --ilw-button--focused-border-color: var(--il-blue);
   }
 
   &.il-orange {
     --ilw-button--background-color: var(--il-orange);
     --ilw-button--foreground-color: white;
     --ilw-button--border-color: var(--il-orange);
+    --ilw-button--focused-background-color: white;
+    --ilw-button--focused-foreground-color: var(--il-orange);
+    --ilw-button--focused-border-color: var(--il-orange);
+  }
+}
+ilw-content[theme="gray"] {
+  .il-button {
+    &.il-white-orange,
+    &.il-orange {
+      --ilw-button--background-color: white;
+      --ilw-button--foreground-color: var(--il-blue);
+      --ilw-button--border-color: var(--il-blue);
+      --ilw-button--focused-background-color: var(--il-blue);
+      --ilw-button--focused-foreground-color: white;
+      --ilw-button--focused-border-color: var(--il-blue);
+    }
   }
 }

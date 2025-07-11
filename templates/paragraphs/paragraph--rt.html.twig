@@ -50,7 +50,7 @@
 {% set background = content.field_rt_background_color['#items'].0.value %}
 {% if background == 'Gray' %}
   {% set theme = 'gray' %}
-  {% set padding = '20px 20px 30px' %}
+  {% set padding = '20px 0 30px' %}
 {% endif %}
 
 {{ attach_library('illinois_framework_theme_stable9/paragraph-rt') }}
@@ -81,12 +81,12 @@
             <h2>{{ content.field_rt_title }}</h2>
           {% endif %}
         </ilw-content>
-        <ilw-columns theme="{{ theme }}" width="auto" gap="40px">
+        <ilw-columns theme="{{ theme }}" width="auto" gap="40px" padding="{{ padding }}">
           {% for item in content.field_rt_column['#items'] %}
             {% set title = content.field_rt_column[loop.index0]['#paragraph'].field_rt_content_title.value %}
             {% set body = content.field_rt_column[loop.index0]['#paragraph'].field_rt_content_body.value|render %}
             <div>
-              <ilw-content>
+              <ilw-content theme="{{ theme }}">
               {% if title %}
                 <h3>{{ title }}</h3>
               {% endif %}
