@@ -1,0 +1,103 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a paragraph.
+ *
+ * Available variables:
+ * - paragraph: Full paragraph entity.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - paragraph.getCreatedTime() will return the paragraph creation timestamp.
+ *   - paragraph.id(): The paragraph ID.
+ *   - paragraph.bundle(): The type of the paragraph, for example, "image" or "text".
+ *   - paragraph.getOwnerId(): The user ID of the paragraph author.
+ *   See Drupal\paragraphs\Entity\Paragraph for a full list of public properties
+ *   and methods for the paragraph object.
+ * - content: All paragraph items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - paragraphs: The current template type (also known as a "theming hook").
+ *   - paragraphs--type-[type]: The current paragraphs type. For example, if the paragraph is an
+ *     "Image" it would result in "paragraphs--type--image". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - paragraphs--view-mode--[view_mode]: The View Mode of the paragraph; for example, a
+ *     preview would result in: "paragraphs--view-mode--preview", and
+ *     default: "paragraphs--view-mode--default".
+ * - view_mode: View mode; for example, "preview" or "full".
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @see template_preprocess_paragraph()
+ *
+ * @ingroup themeable
+ */
+#}
+{{ attach_library('illinois_framework_theme_stable9/paragraph-list-content') }}
+{%
+  set classes = [
+  'paragraph',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  not paragraph.isPublished() ? 'paragraph--unpublished'
+]
+%}
+{% block paragraph %}
+  {# Paragraph ID used for anchor linking #}
+  <div {{ attributes.setAttribute('id', 'paragraph--' ~ paragraph.id() ) }} {{ attributes.addClass(classes) }}>
+    {% block content %}
+        {% if content.field_list_title['#items'] or content.field_list_subtitle['#items']  %}
+          <ilw-content width="auto">
+          <div class="field--name-field-list-text__wrapper">
+            {% if content.field_list_title['#items'] %}
+              <h2 class="field--name-field-list__title title">{{ content.field_list_title }}</h2>
+            {% endif %}
+            {% if content.field_list_subtitle['#items'] %}
+              <div class="field--name-field-list__subtitle subtitle">{{ content.field_list_subtitle }}</div>
+            {% endif %}
+          </div>
+          </ilw-content>
+        {% endif %}
+      {% for key, item in content.field_list_content|filter((value, key) => key|first != '#') %}
+        {% set paragraph = item['#paragraph'] %}
+        {% set image_side = paragraph.field_list_content_layout.value %}
+        {% set image = paragraph.field_list_content_image.entity.fileuri %}
+        {% set alt_text = paragraph.field_list_content_image.alt %}
+        {% set body = paragraph.field_list_content_body.value|render %}
+        {% set padding = '30px 0 20px 0' %}
+
+        {% if loop.index is even %}
+          {% set theme = 'gray' %}
+        {% else %}
+          {% set theme = '' %}
+        {% endif %}
+
+          {% if image %}
+            <ilw-columns mode="1x3" theme="{{ theme }}" width="page" {% if image_side == 'right' %}reverse="true"{% endif %}>
+            <div class="list-image-wrapper"><img src="{{ file_url(image|image_style('list_collection_image')) }}" alt="{{ alt_text }}"></div>
+            <ilw-content theme="{{ theme }}">
+              <div class="">
+                {% if body|trim %}
+                  <div class="">{{ body|check_markup('basic_html') }}</div>
+                {% endif %}
+              </div>
+            </ilw-content>
+            </ilw-columns>
+          {% else %}
+            <ilw-content theme="{{ theme }}" width="auto" padding="{{ padding }}">
+            <div class="">
+              {% if body|trim %}
+                <div class="">{{ body|check_markup('basic_html') }}</div>
+              {% endif %}
+            </div>
+            {% endif %}
+        </ilw-content>
+      {% endfor %}
+    {% endblock %}
+  </div>
+{% endblock paragraph %}

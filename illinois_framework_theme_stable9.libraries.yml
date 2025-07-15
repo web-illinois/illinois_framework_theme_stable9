@@ -89,4 +89,7 @@ ils-forms:
 paragraph-rt:
   js:
     js/paragraph-rt.js: {}
+paragraph-list-content:
+    js:
+        js/paragraph-list-content.js: {}
 
