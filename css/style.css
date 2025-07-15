@@ -1,9 +1,10 @@
 @import "base/reset.css";
-@import "paragraphs/paragraphs.accordion.css";
-@import "paragraphs/paragraphs.cards.css";
 @import "node/node.blog.css";
 @import "node/node.spotlight-family.css";
 @import "node/node.news.css";
 @import "media/media.css";
 @import "base/buttons.css";
 @import "base/elements.img.css";
+@import "paragraphs/paragraphs.accordion.css";
+@import "paragraphs/paragraphs.cards.css";
+@import "paragraphs/paragraphs.list.css";
