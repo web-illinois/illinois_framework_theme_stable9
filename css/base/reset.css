@@ -49,3 +49,11 @@ p, li, td, th, h1, h2, h3, h4, h5, h6 {
  }
  */
 
+address {
+  margin-bottom: 1rem;
+  font-style: normal;
+  line-height: inherit;
+}
+
+
+

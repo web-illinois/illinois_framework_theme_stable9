@@ -89,7 +89,13 @@ ils-forms:
 paragraph-rt:
   js:
     js/paragraph-rt.js: {}
+  dependencies:
+    - core/jquery
 paragraph-list-content:
-    js:
-        js/paragraph-list-content.js: {}
-
+  js:
+      js/paragraph-list-content.js: {}
+  dependencies:
+    - core/jquery
+paragraph-contact:
+  js:
+    js/paragraph-contact.js: {}
