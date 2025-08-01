@@ -105,3 +105,6 @@ paragraph-intro:
 paragraph-bb:
   js:
     js/paragraph-bb.js: {}
+paragraph-card:
+  js:
+    js/paragraph-card.js: {}
