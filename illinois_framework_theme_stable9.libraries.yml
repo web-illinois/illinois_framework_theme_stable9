@@ -108,3 +108,6 @@ paragraph-bb:
 paragraph-card:
   js:
     js/paragraph-card.js: {}
+paragraph-cta-narrow:
+  js:
+    js/paragraph-cta-narrow.js: {}
