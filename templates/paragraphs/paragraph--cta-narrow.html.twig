@@ -61,8 +61,8 @@
   {# Paragraph ID used for anchor linking #}
   <div {{ attributes.setAttribute('id', 'paragraph--' ~ paragraph.id() ) }} {{ attributes.addClass(classes) }}>
     {% block content %}
-        <ilw-content theme="{{ theme }}" width="auto" padding="2.813rem 1rem">
-          <div class="cta-narrow-wrapper">
+        <ilw-content theme="{{ theme }}" padding="2.813rem 1rem">
+          <div class="cta-narrow-wrapper fixed-width">
           {% if content.field_cta_narrow_title['#items'] %}
             <div class="field--name-field-cta-narrow__item">
               <h2 class="field--name-field-cta-narrow__title title">{{ content.field_cta_narrow_title }}</h2>

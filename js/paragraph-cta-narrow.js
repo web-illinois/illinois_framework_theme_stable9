@@ -1,3 +1,3 @@
 jQuery(function($) {
-  $('ilw-columns .paragraph--type--cta-narrow ilw-content[width="auto"]').removeAttr('width');
+  $('ilw-columns .cta-narrow-wrapper.fixed-width').removeClass('fixed-width');
 });
