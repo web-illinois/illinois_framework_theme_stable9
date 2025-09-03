@@ -111,3 +111,6 @@ paragraph-card:
 paragraph-cta-narrow:
   js:
     js/paragraph-cta-narrow.js: {}
+paragraph-feature-group:
+  js:
+    js/paragraph-feature-group.js: {}
