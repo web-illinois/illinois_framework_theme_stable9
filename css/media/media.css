@@ -55,6 +55,22 @@ TODO: Consider making the feature video styles use this responsive video setup.
     height: 100%;
   }
 }
+/* for feature video paragraph type in toolkit 3*/
+.field--name-field-media-oembed-video {
+  position: relative;
+  padding-bottom: 56%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+}
+
+.field--name-field-media-oembed-video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 
 /*Styles for right and left align media*/
 .il-formatted figure,
