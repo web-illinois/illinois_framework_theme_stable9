@@ -114,3 +114,6 @@ paragraph-cta-narrow:
 paragraph-feature-group:
   js:
     js/paragraph-feature-group.js: {}
+paragraph-icon-row:
+  js:
+    js/paragraph-icon-row.js: {}

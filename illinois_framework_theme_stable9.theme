@@ -149,32 +149,31 @@ function illinois_framework_theme_stable9_preprocess_breadcrumb(&$variables) {//
 }
 function illinois_framework_theme_stable9_preprocess_paragraph(&$variables) {
   $bbContentParagraph = $variables['paragraph'];
-
   // This code passes the background color setting from the parent
   // paragraph to the child paragraph.
-  if ($bbContentParagraph->bundle() === 'bb_content') {
 
-    // Get the parent entity (the container paragraph)
+  // Get the parent entity (the container paragraph)
+  if (
+    $bbContentParagraph->bundle() === 'bb_content' ||
+    $bbContentParagraph->bundle() === 'icon_row_content'
+  ) {
     $parent = $bbContentParagraph->getParentEntity();
-
     // Check if the parent exists, is a Paragraph, and is the correct parent type
-    if ($parent instanceof ParagraphInterface && $parent->bundle() === 'bb') {
-
-      // Check if the parent has the background field and it's not empty
-      if ($parent->hasField('field_bb_background') && !$parent->get('field_bb_background')->isEmpty()) {
-
+    if (
+      $parent instanceof ParagraphInterface &&
+      ($parent->bundle() === 'bb' || $parent->bundle() === 'icon_row')
+    ) {
+      // Choose the correct field based on parent bundle
+      if ($parent->bundle() === 'bb' && $parent->hasField('field_bb_background') && !$parent->get('field_bb_background')->isEmpty()) {
+        // Check if the parent has the background field and it's not empty
+        $variables['bb_background'] = $parent->get('field_bb_background')->value;
         // Get the raw value from the parent field
-        $background_value = $parent->get('field_bb_background')->value;
-        // Add it (or a processed version) to the child's variables
-        $variables['bb_background'] = $background_value;
-
+      } elseif ($parent->bundle() === 'icon_row' && $parent->hasField('field_icon_row_background') && !$parent->get('field_icon_row_background')->isEmpty()) {
+        $variables['bb_background'] = $parent->get('field_icon_row_background')->value;
       } else {
-
-        // Provide a default value if the parent field is missing or empty
         $variables['bb_background'] = 'white';
       }
     } else {
-      // Optional: Provide a default if not nested in the expected parent
       $variables['bb_background'] = $parent->bundle();
     }
   }
