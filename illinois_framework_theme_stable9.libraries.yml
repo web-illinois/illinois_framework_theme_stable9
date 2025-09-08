@@ -117,3 +117,6 @@ paragraph-feature-group:
 paragraph-icon-row:
   js:
     js/paragraph-icon-row.js: {}
+paragraph-image-gallery:
+  js:
+    js/paragraph-image-gallery.js: {}
