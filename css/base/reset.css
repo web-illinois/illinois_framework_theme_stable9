@@ -42,12 +42,6 @@ p, li, td, th, h1, h2, h3, h4, h5, h6 {
   word-break: break-word;
   overflow-wrap: break-word;
 }
-/*.fixed-width {
-   margin: 0 auto;
-   padding: 0 var(--ilw-margin--side, 0);
-   width: 100%;
- }
- */
 
 address {
   margin-bottom: 1rem;
