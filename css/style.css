@@ -1,5 +1,6 @@
 @import "base/reset.css";
 @import "layout/layout.css";
+@import "node/node.css";
 @import "node/node.blog.css";
 @import "node/node.spotlight-family.css";
 @import "node/node.news.css";
@@ -21,3 +22,4 @@
 @import "paragraphs/paragraphs.feature-grouped.css";
 @import "paragraphs/paragraphs.icon-row.css";
 @import "paragraphs/paragraphs.image-gallery.css";
+@import "paragraphs/paragraphs.vertical-tab.css";

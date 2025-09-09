@@ -1,0 +1,18 @@
+.paragraph--type--vertical-tab {
+  h2 {
+    padding: 3rem 0 0 0;
+    margin: 0;
+  }
+  ilw-tabs[theme="blue"] {
+    background: var(--il-blue);
+    div.field--name-field-vertical-tab-panel__body {
+      --ilw-tabs--color: white;
+    }
+  }
+  ilw-tabs[width="auto"] {
+    padding: 60px 30px 75px;
+  }
+  ilw-tabs[theme="gray"] {
+    background: var(--il-storm-lighter-4);
+  }
+}

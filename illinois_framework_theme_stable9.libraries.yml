@@ -120,3 +120,6 @@ paragraph-icon-row:
 paragraph-image-gallery:
   js:
     js/paragraph-image-gallery.js: {}
+paragraph-vertical-tabs:
+  js:
+    js/paragraph-vertical-tab.js: {}
