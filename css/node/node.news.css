@@ -190,7 +190,6 @@ article.news {
 
 /*news blocks more news*/
 .news-block {
-  max-width: var(--il-framework--fixed-width);
   margin: 0 auto;
   max-width: 900px;
   .item-list {
@@ -199,14 +198,14 @@ article.news {
 
       li {
         padding: 1.0rem 0;
-        border-bottom: 1px solid var(--il-cloud-3);
+        border-bottom: 1px solid #C6C7C7;
         margin: 0;
         list-style: none;
         &:before {
           content: "\25A0";
-          color: var(--il-cloud-3);
           padding-right: 1rem;
           float: left;
+          color: #C6C7C7;
         }
       }
       li:last-child {
@@ -243,7 +242,6 @@ article.news {
 
 /*highlighted news block*/
 .highlighted-news {
-  max-width: var(--il-framework--fixed-width);
   margin: 0 auto;
   max-width: 900px;
   &.fixed-width {
@@ -354,16 +352,16 @@ article.news {
 .hvrbox-card {
   display: flex;
   flex-wrap: wrap;
-  gap: 2.25rem 3%;
-  @include media-breakpoint-down(md) {
-    gap: 2rem 3%;
-    }
+  gap: 2rem 3%;
+  flex-basis: 100%;
+  @media (min-width: 768px) {
+    gap: 2.25rem 3%;
+  }
     &.hvrbox-col-2 {
       > div {
-        flex-basis: 48%;
-        @include media-breakpoint-down(sm) {
-          flex-basis: 100%;
-          }
+        @media (min-width: 600px) {
+          flex-basis: 48%;
+        }
       }
       header {
         flex: 0 0 100%;
@@ -378,13 +376,13 @@ article.news {
       }
       .hvrbox {
         .hvrbox-title {
-          font-size: rem(29px);
-          line-height: rem(35px);
+          font-size: 1.25rem;
+          line-height: 1.6875rem;
           font-weight: 700;
-          @include media-breakpoint-down(lg) {
-            font-size: rem(20px);
-            line-height: rem(27px);
-            }
+          @media (min-width: 992px) {
+            font-size: 1.8125rem;
+            line-height: 2.1875rem;
+          }
         }
           .hvrbox-body {
           overflow: hidden;
@@ -402,13 +400,13 @@ article.news {
     }
     &.hvrbox-col-3 {
       > div {
-        flex-basis: 31%;
-        @include media-breakpoint-down(md) {
+        flex-basis: 100%;
+        @media (min-width: 768px) {
           flex-basis: 48%;
+        }
+          @media (min-width: 600px) {
+            flex-basis: 31%;
           }
-          @include media-breakpoint-down(sm) {
-            flex-basis: 100%;
-            }
       }
       header {
         flex: 0 0 100%;
@@ -423,8 +421,8 @@ article.news {
       }
       .hvrbox {
         .hvrbox-title {
-          font-size: rem(20px);
-          line-height: rem(27px);
+          font-size: 1.25rem;
+          line-height: 1.6875rem;
           font-weight: 700;
         }
         .hvrbox-body {
@@ -470,8 +468,8 @@ article.news {
         }
         .hvrbox-body{
           opacity: 0;
-          font-size: rem(20px);
-          line-height: rem(27px);
+          font-size: 1.25rem;
+          line-height: 1.6875rem;
           font-weight: 500;
           -moz-transition: all 0.4s ease-in-out 0s;
           -webkit-transition: all 0.4s ease-in-out 0s;
@@ -528,7 +526,6 @@ article.news {
         .hvrbox-title{
           color: var(--il-orange);
           transition: all 0.4s;
-        }
         }
     }
 }
