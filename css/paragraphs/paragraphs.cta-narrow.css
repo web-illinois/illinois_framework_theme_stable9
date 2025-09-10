@@ -37,9 +37,6 @@
     flex-basis: 0;
     white-space: nowrap;
     max-width: 19.5rem;
-    @include media-breakpoint-down(sm) {
-      flex-basis: 100%;
-    }
   }
 }
 

@@ -51,7 +51,9 @@
   <div {{ attributes.setAttribute('id', 'paragraph--' ~ paragraph.id() ) }} {{ attributes.addClass(classes) }}>
     {% block content %}
       <ilw-accordion width="page">
-        <h2>{{ content.field_accordion_title }}</h2>
+        {% if content.field_accordion_title['#items'] %}
+          <h2>{{ content.field_accordion_title }}</h2>
+        {% endif %}
         {{ content|without('field_accordion_title') }}
       </ilw-accordion>
     {% endblock %}
