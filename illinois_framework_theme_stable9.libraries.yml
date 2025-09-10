@@ -123,3 +123,6 @@ paragraph-image-gallery:
 paragraph-vertical-tabs:
   js:
     js/paragraph-vertical-tab.js: {}
+paragraph-calendar:
+  js:
+    js/paragraph-calendar.js: {}
