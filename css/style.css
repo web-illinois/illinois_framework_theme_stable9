@@ -8,6 +8,7 @@
 @import "base/buttons.css";
 @import "base/elements.img.css";
 @import "views/view.news.css";
+@import "component/table.css";
 @import "paragraphs/paragraphs.accordion.css";
 @import "paragraphs/paragraphs.cards.css";
 @import "paragraphs/paragraphs.list.css";
