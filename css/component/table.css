@@ -4,8 +4,9 @@
 }
 
 .table-responsive-wrapper table {
-  width: auto;
-  min-width: 600px; /* force scroll if too narrow */
+  @media (max-width: 599px) {
+    width: auto;
+  }
 }
 @media (max-width: 599px) {
   .table-stack table,
