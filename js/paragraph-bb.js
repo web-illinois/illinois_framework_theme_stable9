@@ -1,6 +1,8 @@
 jQuery(function($) {
   $('ilw-columns .paragraph--type--bb ilw-content[width="page"], ilw-columns .paragraph--type--bb ilw-content[width="full"]').removeAttr('width');
   $('ilw-columns .paragraph--type--bb ilw-grid[width="page"], ilw-columns .paragraph--type--bb ilw-grid[width="full"]').removeAttr('width');
+  $('article.news .paragraph--type--bb ilw-content[width="page"], article.news .paragraph--type--bb ilw-grid[width="page"]').removeAttr('width');//fix for paragraphs in news content type
+
 
   function setFullWidthPadding() {
     if (window.matchMedia('(max-width: 599px)').matches) {
