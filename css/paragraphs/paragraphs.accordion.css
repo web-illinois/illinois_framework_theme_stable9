@@ -3,3 +3,8 @@ ilw-columns {
     --ilw-margin--side: 0;
   }
 }
+article.news, article.spotlight {
+  ilw-accordion[width="page"] {/*fixes width on paragraph on news content type*/
+    --ilw-margin--side: 0;
+  }
+}

@@ -9,11 +9,14 @@
       font-family: var(--ilw-card--font);
     }
   }
-}
+  .subtitle {
+    font-weight: 700;
+    font-size: 1.75rem;
+    padding-bottom: 2.5rem;
+    text-align: center;
 
-ilw-columns {
-  ilw-grid[width="page"] {/*this overrides the cards width to be full width when next to the sidebar*/
-    --ilw-margin--side: 0;
+    .field__item {
+      margin-bottom: 0;
+    }
   }
 }
-

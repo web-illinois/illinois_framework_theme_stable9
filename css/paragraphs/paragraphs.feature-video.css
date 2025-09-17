@@ -68,7 +68,7 @@
     }
   }
 }
-article.news {
+article.news, article.spotlight {
   .paragraph--type--feature-video.fixed-width {/*fixes fixed-width on paragraph on news content type*/
     padding: 0;
   }

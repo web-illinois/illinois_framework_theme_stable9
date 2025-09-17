@@ -31,7 +31,7 @@
     color: var(--ilw-text--color);
   }
 }
-article.news {
+article.news, article.spotlight {
   .paragraph--type--feature-split.fixed-width {/*fixes fixed-width on paragraph on news content type*/
     padding: 0;
   }
