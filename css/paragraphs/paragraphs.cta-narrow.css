@@ -39,4 +39,11 @@
     max-width: 19.5rem;
   }
 }
+article.spotlight {
+  .paragraph--type--cta-narrow {
+    .fixed-width {
+      padding: 0;
+    }
+  }
+}
 
