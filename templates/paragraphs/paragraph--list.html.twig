@@ -78,7 +78,7 @@
         {% endif %}
 
           {% if image %}
-            <ilw-columns mode="1x3" theme="{{ theme }}" width="page" {% if image_side == 'right' %}reverse="true"{% endif %}>
+            <ilw-columns mode="1x3" theme="{{ theme }}" width="page" {% if image_side == 'right' %}reverse="true" class="image-side-right" {% endif %}>
             <div class="list-image-wrapper"><img src="{{ file_url(image|image_style('list_collection_image')) }}" alt="{{ alt_text }}"></div>
             <ilw-content theme="{{ theme }}">
               <div class="">
