@@ -12,7 +12,7 @@ function illinois_framework_theme_stable9_form_system_theme_settings_alter(&$for
   // Add Links to the upper right-hand corner of the website
   $form['if_header_links'] = array(
     '#type' => 'details',
-    '#title' => t('Header Link List'),
+    '#title' => t('Feature Link List'),
     '#description' => t('Add up to 3 links in the upper right-hand corner of the header'),
     '#weight' => -105,
     '#open' => FALSE,
@@ -105,6 +105,18 @@ function illinois_framework_theme_stable9_form_system_theme_settings_alter(&$for
     '#title' => t('Footer Example'),
     '#weight' => -93,
   );
+  $form['if_footer']['if_shibboleth_login_direct'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Link Login button directly to the Shibboleth login (if enabled)'),
+    '#description' => "Select this to have the login button link directly to the Shibboleth login page.",
+    '#default_value' => theme_get_setting('if_shibboleth_login_direct'),
+  );
+  $form['if_footer']['if_footer_google_translate'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable Google Translate option in footer'),
+    '#description' => "Select this to enable Google Translate in the footer.",
+    '#default_value' => theme_get_setting('if_footer_google_translate'),
+  );
   // Select Social Media to display in the footer
   $form['if_footer']['if_footer_social'] = array(
     '#type' => 'fieldset',
@@ -126,8 +138,8 @@ function illinois_framework_theme_stable9_form_system_theme_settings_alter(&$for
   );
   $form['if_footer']['if_footer_social']['if_footer_social_twitter'] = array(
     '#type'          => 'url',
-    '#placeholder' => 'https://twitter.com',
-    '#title'         => t('Enter the link to your Twitter page'),
+    '#placeholder' => 'https://x.com',
+    '#title'         => t('Enter the link to your X page'),
     '#size'          => 128,
     '#default_value' => theme_get_setting('if_footer_social_twitter'),
   );
@@ -144,6 +156,62 @@ function illinois_framework_theme_stable9_form_system_theme_settings_alter(&$for
     '#title'         => t('Enter the link to your LinkedIn page'),
     '#size'          => 128,
     '#default_value' => theme_get_setting('if_footer_social_linkedin'),
+  );
+  $form['if_footer']['if_footer_social']['if_footer_social_bluesky'] = array(
+    '#type'          => 'url',
+    '#placeholder' => 'https://bsky.app/',
+    '#title'         => t('Enter the link to your Bluesky page'),
+    '#size'          => 128,
+    '#default_value' => theme_get_setting('if_footer_social_bluesky'),
+  );
+  $form['if_footer']['if_footer_social']['if_footer_social_calendar'] = array(
+    '#type'          => 'url',
+    '#placeholder' => 'https://calendars.illinois.edu/list/xxx',
+    '#title'         => t('Enter the link to your calendar page'),
+    '#size'          => 128,
+    '#default_value' => theme_get_setting('if_footer_social_calendar'),
+  );
+  $form['if_footer']['if_footer_social']['if_footer_social_tiktok'] = array(
+    '#type'          => 'url',
+    '#placeholder' => 'https://tiktok.com',
+    '#title'         => t('Enter the link to your TikTok page'),
+    '#size'          => 128,
+    '#default_value' => theme_get_setting('if_footer_social_tiktok'),
+  );
+  $form['if_footer']['if_footer_social']['if_footer_social_threads'] = array(
+    '#type'          => 'url',
+    '#placeholder' => 'https://threads.net',
+    '#title'         => t('Enter the link to your Threads page'),
+    '#size'          => 128,
+    '#default_value' => theme_get_setting('if_footer_social_threads'),
+  );
+  $form['if_footer']['if_footer_social']['if_footer_social_pinterest'] = array(
+    '#type'          => 'url',
+    '#placeholder' => 'https://pinterest.com',
+    '#title'         => t('Enter the link to your Pinterest page'),
+    '#size'          => 128,
+    '#default_value' => theme_get_setting('if_footer_social_pinterest'),
+  );
+  $form['if_footer']['if_footer_social']['if_footer_social_snapchat'] = array(
+    '#type'          => 'url',
+    '#placeholder' => 'https://snapchat.com',
+    '#title'         => t('Enter the link to your Snapchat page'),
+    '#size'          => 128,
+    '#default_value' => theme_get_setting('if_footer_social_snapchat'),
+  );
+  $form['if_footer']['if_footer_social']['if_footer_social_weibo'] = array(
+    '#type'          => 'url',
+    '#placeholder' => 'https://weibo.com',
+    '#title'         => t('Enter the link to your Weibo page'),
+    '#size'          => 128,
+    '#default_value' => theme_get_setting('if_footer_social_weibo'),
+  );
+  $form['if_footer']['if_footer_social']['if_footer_social_whatsapp'] = array(
+    '#type'          => 'url',
+    '#placeholder' => 'https://whatsapp.com',
+    '#title'         => t('Enter the link to your WhatsApp page'),
+    '#size'          => 128,
+    '#default_value' => theme_get_setting('if_footer_social_whatsapp'),
   );
 
   // Start of Address Block

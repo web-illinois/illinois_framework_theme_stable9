@@ -1,5 +1,6 @@
 @import "base/reset.css";
 @import "layout/layout.css";
+@import "regions/region.footer.css";
 @import "node/node.css";
 @import "node/node.blog.css";
 @import "node/node.spotlight-family.css";
@@ -9,6 +10,7 @@
 @import "base/elements.img.css";
 @import "views/view.news.css";
 @import "component/table.css";
+@import "component/components.google-translate.css";
 @import "paragraphs/paragraphs.accordion.css";
 @import "paragraphs/paragraphs.cards.css";
 @import "paragraphs/paragraphs.list.css";
