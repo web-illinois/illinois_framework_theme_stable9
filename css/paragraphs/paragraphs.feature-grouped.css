@@ -1,4 +1,7 @@
 .paragraph--type--feature-grouped {
+  @media (min-width: 600px) {
+    margin: 1.75rem 0;
+  }
   ul.ilw-buttons {
     justify-content: left;
   }
