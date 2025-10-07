@@ -74,7 +74,7 @@
     {% block content %}
       <ilw-columns theme="{{ theme }}" padding="0" {{ reverse_attr }}>
         <div class="field--name-field-feature-video__video">{{ content.field_feature_video_video }}</div>
-        <ilw-content theme="{{ theme }}" mode="inset">
+        <ilw-content transparent="true" mode="inset">
         {% if content.field_feature_video_subtitle['#items'] %}
             <div class="field--name-field-feature-video__subtitle subtitle">{{ content.field_feature_video_subtitle }}</div>
           {% endif %}
