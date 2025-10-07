@@ -62,15 +62,3 @@
     }
   }
 }
-article.spotlight, article.news {
-  .paragraph--type--feature-boxed {
-    ilw-card[theme="blue-gradient"] {
-      h2 {
-        --ilw-heading--color: white;
-      }
-      p {
-        --ilw-text--color: white;
-      }
-    }
-  }
-}

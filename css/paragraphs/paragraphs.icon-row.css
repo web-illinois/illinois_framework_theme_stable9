@@ -8,7 +8,7 @@
     font-size: 2rem;
     line-height: 2.375rem;
     font-weight: 600;
-    --ilw-text--color: var(--il-orange);
+    --ilw-color--text: var(--il-orange);
   }
 
   .field--name-field-icon-row-text {
@@ -17,7 +17,7 @@
   }
   .field--name-field-icon-row-content {
     text-align: center;
-    --ilw-text--color: var(--il-blue);
+    --ilw-color--text: var(--il-blue);
   }
 
   .sm-icon {
@@ -37,12 +37,12 @@
   flex: 1 1 20%;
   ilw-content {
     div {
-      color: var(--ilw-text--color);
+      color: var(--ilw-color--text);
     }
   }
   ilw-content[theme="gray"]{
     .field--name-field-icon-row-callout {
-      --ilw-text--color: var(--il-altgeld);
+      --ilw-color--text: var(--il-altgeld);
     }
   }
 }
