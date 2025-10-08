@@ -1,4 +1,5 @@
 .paragraph--type--contact {
+  margin-top: 2rem;
   ilw-columns {
     .d-flex {
       @include media-breakpoint-down(sm) {

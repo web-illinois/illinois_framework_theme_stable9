@@ -10,6 +10,22 @@
   }
   ilw-card {
     /*max-width: 400px;*/
+
+  }
+  ilw-card[clickable] {
+    p {
+      color: var(--ilw-color--text);
+    }
+    &:hover {
+      p {
+        color: var(--ilw-color--background);
+      }
+      a {
+        &:visited {
+          color: var(--ilw-color--link);
+        }
+      }
+    }
   }
 
   .center {
