@@ -60,43 +60,34 @@
     {# Add an is-unpublished class to main tag if the node is unpublished #}
     {% set unpublished = not node.isPublished() ? 'is-unpublished' : '' %}
     <main{{ attributes.addClass(unpublished) }} role="main" id="main-content" tabindex="-1">{# link is in html.html.twig #}
-      {# if a side navigation exists and /'latest' is not in the url then spoof the content region #}
-      {% if node.field_sidebar.0.value == "sidebar" and '/latest' not in url|render|render %}
+      {# if a side navigation exists and /'latest' is not in the url #}
+      {% if node.field_sidebar.0.value == 'sidebar' and '/latest' not in url|render|render %}
         <ilw-columns mode="sidebar-left" width="auto">
           {{ page.sidebar_first }}
           {{ page.sidebar_second }}
           <div>
-            {% if node.body %}
-              <ilw-content>
-                {{ drupal_field('body','node', node.id ) }}
-              </ilw-content>
-            {% endif %}
-            {% set paragraph_number = node.field_sidebar_paragraphs.0.value %}
-            {% set paragraph_count = node.fields.field_paragraph|length %}
-            {% for item in node.fields.field_paragraph %}
-              {% if loop.index0 < paragraph_number %}
-                {{ drupal_entity('paragraph', item.target_id) }}
-              {% endif %}
-            {% endfor %}
+            <ilw-content>
+              {# Render only the sidebar content here (blocks + body + sidebar paragraphs) #}
+              {{ page.sidebar_content }}
+            </ilw-content>
           </div>
         </ilw-columns>
-            {% for item in node.fields.field_paragraph %}
-              {% if loop.index0 >= paragraph_number %}
-                {{ drupal_entity('paragraph', item.target_id) }}
-              {% endif %}
-            {% endfor %}
-
-        {# if there is no sidebar #}
+        {# Full-width paragraphs appear outside the columns #}
+        <ilw-content>
+          {{ page.full_width_paragraphs }}
+        </ilw-content>
       {% else %}
-        {% if node.body %}
+        {# if there is no sidebar #}
+        {% if page.body_content %}
           <ilw-content width="page">
-            {{ drupal_field('body','node', node.id ) }}
+            {{ page.body_content }}
           </ilw-content>
         {% endif %}
-        {% for item in node.fields.field_paragraph %}
-          {{ drupal_entity('paragraph', item.target_id) }}
-      {% endfor %}
+        <ilw-content>
+          {{ page.content }}
+        </ilw-content>
       {% endif %}
+
     </main>
 
     <ilw-footer slot="footer">
@@ -104,4 +95,4 @@
     </ilw-footer>
 
   </ilw-page>
-</div>{# /.layout-container #}
+</div>
