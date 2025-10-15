@@ -33,4 +33,7 @@
       margin: -3px 0 0;
     }
   }
+  #edit-submit-news {
+    width: auto;
+  }
 }

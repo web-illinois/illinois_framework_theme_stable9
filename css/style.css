@@ -8,6 +8,7 @@
 @import "media/media.css";
 @import "base/buttons.css";
 @import "base/elements.img.css";
+@import "component/search.css";
 @import "views/view.news.css";
 @import "component/table.css";
 @import "component/components.google-translate.css";
