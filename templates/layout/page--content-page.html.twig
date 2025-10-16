@@ -66,16 +66,12 @@
           {{ page.sidebar_first }}
           {{ page.sidebar_second }}
           <div>
-            <ilw-content>
               {# Render only the sidebar content here (blocks + body + sidebar paragraphs) #}
               {{ page.sidebar_content }}
-            </ilw-content>
           </div>
         </ilw-columns>
         {# Full-width paragraphs appear outside the columns #}
-        <ilw-content>
           {{ page.full_width_paragraphs }}
-        </ilw-content>
       {% else %}
         {# if there is no sidebar #}
         {% if page.body_content %}
@@ -83,9 +79,7 @@
             {{ page.body_content }}
           </ilw-content>
         {% endif %}
-        <ilw-content>
           {{ page.content }}
-        </ilw-content>
       {% endif %}
 
     </main>
