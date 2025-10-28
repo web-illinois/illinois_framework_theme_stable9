@@ -79,10 +79,12 @@
   <div {{ attributes.setAttribute('id', 'paragraph--' ~ paragraph.id() ) }} {{ attributes.addClass(classes) }} >
     {% block content %}
       <ilw-call-to-action theme="{{ theme }}" align="{{ align }}">
-      {% if content.field_cta_icon['#items'] %}
-        <img src="{{  base_path_http ~ file_url(content.field_cta_icon.0['#markup']) }}" alt="{{ content.field_cta_icon['#items'].0.alt }}" slot="icon" />
-      {% endif %}
-
+        {% if content.field_icon_row_content_icon['#items'] %}
+          <ilw-icon slot="icon" icon="{{ cta_icon }}"></ilw-icon>
+        {% elseif content.field_cta_icon['#items'] %}{# this is a deprecated image field replaced by ilw-icon #}
+          <img src="{{ base_path_http ~ file_url(content.field_cta_icon.0['#markup']) }}"
+               alt="{{ content.field_cta_icon['#items'].0.alt }}" slot="icon" />
+        {% endif %}
         {% if content.field_cta_subtitle['#items'] %}
         <div class="field--name-field-cta__subtitle subtitle">{{ content.field_cta_subtitle }}</div>
         {% endif %}

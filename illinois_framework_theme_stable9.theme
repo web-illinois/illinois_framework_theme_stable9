@@ -409,4 +409,132 @@ function illinois_framework_theme_stable9_preprocess_paragraph(&$variables) {
       $variables['bb_background'] = $parent->bundle();
     }
   }
+
+  $paragraph = $variables['paragraph'] ?? ($variables['elements']['#paragraph'] ?? null);
+
+  if (!$paragraph instanceof ParagraphInterface) {
+    return;
+  }
+
+  // --- Background propagation for bb_content and icon_row_content ---
+  $bundle = $paragraph->bundle();
+  if ($bundle === 'bb_content' || $bundle === 'icon_row_content') {
+    $parent = $paragraph->getParentEntity();
+    if ($parent instanceof ParagraphInterface && ($parent->bundle() === 'bb' || $parent->bundle() === 'icon_row')) {
+      if ($parent->bundle() === 'bb' && $parent->hasField('field_bb_background') && !$parent->get('field_bb_background')->isEmpty()) {
+        $variables['bb_background'] = $parent->get('field_bb_background')->value;
+      } elseif ($parent->bundle() === 'icon_row' && $parent->hasField('field_icon_row_background') && !$parent->get('field_icon_row_background')->isEmpty()) {
+        $variables['bb_background'] = $parent->get('field_icon_row_background')->value;
+      } else {
+        $variables['bb_background'] = 'white';
+      }
+    } else {
+      // Fallback default when no suitable parent found.
+      $variables['bb_background'] = 'white';
+    }
+  }
+
+  // --- Icon mapping for paragraph cta and icon_row_content ---
+  $bundle = $paragraph->bundle();
+  if ($bundle === 'cta' || $bundle === 'icon_row_content') {
+    $icon_key = '';
+    if ($paragraph->hasField('field_icon_row_content_icon') && !$paragraph->get('field_icon_row_content_icon')->isEmpty()) {
+      $first = $paragraph->get('field_icon_row_content_icon')->first();
+      if ($first) {
+        $val = $first->getValue();
+        $icon_key = (string) ($val['value'] ?? $val['target_id'] ?? '');
+      }
+    }
+
+
+    $icon_map = [
+      'il-icon-admissions'    => 'admissions-line',
+      'il-icon-alumni'        => 'alumni-line',
+      'il-icon-apply-now'     => 'apply-now-line',
+      'il-icon-audio'         => 'audio-line',
+      'audio-transcript'      => 'audio-transcript-line',
+      'il-icon-back'          => 'back-line',
+      'bluesky'               => 'bluesky-line',
+      'il-icon-calendar'      => 'calendar-line',
+      'il-icon-cancel-exit'   => 'cancel-line',
+      'check'                 => 'check-line',
+      'il-icon-comment'       => 'comment-line',
+      'il-icon-directory'     => 'directory-line',
+      'il-icon-document'      => 'document-line',
+      'il-icon-donor'         => 'donor-line',
+      'il-icon-download'      => 'download-line',
+      'il-icon-email'         => 'email-line',
+      'il-icon-event'         => 'event-line',
+      'il-icon-facebook'      => 'facebook-line',
+      'il-icon-faculty-staff' => 'faculty-line',
+      'il-icon-faq'           => 'faq-line',
+      'il-icon-favorite'      => 'favorite-line',
+      'flickr'                => 'flickr-line',
+      'github'                => 'github-line',
+      'il-icon-give-gift'     => 'gift-line',
+      'il-icon-google-plus'   => 'google-plus-line',
+      'il-icon-handbook-manual'=> 'handbook-line',
+      'il-icon-home'          => 'home-line',
+      'il-icon-hours'         => 'hours-line',
+      'il-icon-hr'            => 'hr-line',
+      'il-icon-image'         => 'image-line',
+      'il-icon-inclusive'     => 'inclusive-line',
+      'il-icon-info'          => 'info-line',
+      'il-icon-instagram'     => 'instagram-line',
+      'il-icon-intranet'      => 'intranet-line',
+      'il-icon-job-employment'=> 'employment-line',
+      'il-icon-less'          => 'less-line',
+      'il-icon-link'          => 'link-line',
+      'il-icon-linkedin'      => 'linkedin-line',
+      'il-icon-location'      => 'location-line',
+      'mastodon'              => 'mastodon-line',
+      'il-icon-menu'          => 'menu-line',
+      'il-icon-more'          => 'more-line',
+      'il-icon-news'          => 'news-line',
+      'il-icon-next'          => 'next-line',
+      'il-icon-notification'  => 'notification-line',
+      'il-icon-parent-family' => 'family-line',
+      'il-icon-partners'      => 'partners-line',
+      'il-icon-pay-bill'      => 'pay-line',
+      'pause'                 => 'pause-line',
+      'pdf'                   => 'pdf-line',
+      'play'                  => 'play-line',
+      'il-icon-phone-call'    => 'phone-line',
+      'il-icon-pinterest'     => 'pinterest-line',
+      'il-icon-plan'          => 'plan-line',
+      'il-icon-program-of-study'=> 'program-of-study-line',
+      'reddit'                => 'reddit-line',
+      'il-icon-research'      => 'research-line',
+      'il-icon-resources'     => 'resources-line',
+      'il-icon-safety'        => 'safety-line',
+      'il-icon-search'        => 'search-line',
+      'il-icon-send'          => 'send-line',
+      'il-icon-settings'      => 'settings-line',
+      'il-icon-shop'          => 'shop-line',
+      'il-icon-sitemap'       => 'sitemap-line',
+      'il-icon-snapchat'      => 'snapchat-line',
+      'spotify'               => 'spotify-line',
+      'il-icon-students'      => 'students-line',
+      'il-icon-submit'        => 'submit-line',
+      'il-icon-team'          => 'team-line',
+      'threads'               => 'threads-line',
+      'tiktok'                => 'tiktok-line',
+      'il-icon-tickets'       => 'tickets-line',
+      'il-icon-trash'         => 'trash-line',
+      'il-icon-twitter'       => 'twitter-line',
+      'il-icon-unit'          => 'unit-line',
+      'il-icon-user'          => 'user-line',
+      'il-icon-video'         => 'video-line',
+      'il-icon-volume'        => 'volume-line',
+      'il-icon-website'       => 'website-line',
+      'il-icon-weibo'         => 'weibo-line',
+      'il-icon-whatsapp'      => 'whatsapp-line',
+      'il-icon-workshop-training'=> 'workshop-line',
+      'x'                     => 'x-line',
+      'yelp'                  => 'yelp-line',
+      'il-icon-youtube'       => 'youtube-line',
+    ];
+
+    $variables['cta_icon'] = $icon_map[$icon_key] ?? '';
+  }
 }

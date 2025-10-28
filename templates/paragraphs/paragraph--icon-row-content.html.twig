@@ -43,6 +43,13 @@
   : bb_background == 'gray'
   ? 'gray'
   : bb_background %}
+```twig
+{# Get parent paragraph and read its icon size safely (fallback to 'lg-icon') #}
+{% set parent = paragraph.getParentEntity() %}
+{% set icon_size = parent ? parent.field_icon_row_icon_size[0].value|default('lg-icon') : 'lg-icon' %}
+{% set size = icon_size == 'sm-icon' ? '4.6875rem' : '9.375rem' %}
+
+
 {%
   set classes = [
   'paragraph',
@@ -58,9 +65,7 @@
       <ilw-content theme="{{ theme }}">
       <div class="field--name-field-icon-row-content__wrapper">
         {% if content.field_icon_row_content_icon['#items'] %}
-          <div class="field--name-field-icon-row-icon_wrapper">
-            <span class="{{ content.field_icon_row_content_icon['#items'].0.value }}" aria-hidden="true"></span>
-          </div>
+            <ilw-icon slot="icon" icon="{{ cta_icon }}" size="{{ size }}"></ilw-icon>
         {% endif %}
         <div class="field--name-field-icon-row-text__wrapper">
           {% if content.field_icon_row_content_callout['#items'] %}

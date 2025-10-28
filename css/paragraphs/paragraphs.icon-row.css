@@ -30,6 +30,9 @@
       font-size: 9.375rem;
     }
   }
+  ilw-icon {
+    color: var(--ilw-color--heading);
+  }
 }
 .paragraph--type--icon-row-content {
   justify-content: center;
