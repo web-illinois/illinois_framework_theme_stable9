@@ -8,7 +8,6 @@ libraries:
   - illinois_framework_theme_stable9/global
   - illinois_framework_theme_stable9/web-components
   - illinois_framework_theme_stable9/ils-forms
-  - illinois_framework_theme_stable9/ilw-tooltip
 
 ckeditor5-stylesheets:
   - css/ck5style.css
