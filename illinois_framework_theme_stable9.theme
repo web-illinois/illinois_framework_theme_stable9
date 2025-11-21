@@ -155,47 +155,51 @@ function illinois_framework_theme_stable9_preprocess_page(array &$variables): vo
     !$node->get('field_sidebar')->isEmpty() &&
     $node->get('field_sidebar')->value === 'sidebar';
 
+  // Extract blocks from page.content and remove the node (do this for BOTH cases).
+  $content_blocks = isset($variables['page']['content']) ? $variables['page']['content'] : [];
+  $preserved_blocks = [];
+
+  foreach ($content_blocks as $key => $block) {
+    // Skip render metadata keys.
+    if (strpos($key, '#') === 0) {
+      continue;
+    }
+
+    // Skip the node content block - it's typically named with 'content' in the key.
+    // Common patterns: 'content', '{theme}_content', 'system_main'
+    if (strpos($key, '_content') !== false || $key === 'content' || $key === 'system_main') {
+      unset($variables['page']['content'][$key]);
+      continue;
+    }
+
+    // Also check for node entity type.
+    if (isset($block['#node']) || (isset($block['#entity_type']) && $block['#entity_type'] === 'node')) {
+      unset($variables['page']['content'][$key]);
+      continue;
+    }
+
+    $preserved_blocks[$key] = $block;
+    // Also remove from original content region.
+    unset($variables['page']['content'][$key]);
+  }
+
+  // Render the node body if it exists (respecting display settings).
+  $body_render = [];
+  if ($node->hasField('body') && !$node->get('body')->isEmpty()) {
+    // Load the display settings for the 'default' view mode.
+    $view_display = \Drupal::entityTypeManager()
+      ->getStorage('entity_view_display')
+      ->load('node.content_page.default');
+
+    if ($view_display && $view_display->getRenderer('body')) {
+      // Build render array using those display settings.
+      $body_render = $view_display->getRenderer('body')->view($node->get('body'), ['label' => 'hidden']);
+    }
+  }
+
   if (!$has_sidebar) {
-    // No sidebar - extract body and render it separately.
-    // Render the node body if it exists (respecting display settings).
-    $body_render = [];
-    if ($node->hasField('body') && !$node->get('body')->isEmpty()) {
-      // Load the display settings for the 'default' view mode.
-      $view_display = \Drupal::entityTypeManager()
-        ->getStorage('entity_view_display')
-        ->load('node.content_page.default');
-
-      if ($view_display && $view_display->getRenderer('body')) {
-        // Build render array using those display settings.
-        $body_render = $view_display->getRenderer('body')->view($node->get('body'), ['label' => 'hidden']);
-      }
-    }
-
-    // Create a separate body variable.
-    $variables['page']['body_content'] = $body_render;
-
-    // Remove the node content from page.content so we can render body separately.
-    $content_blocks = isset($variables['page']['content']) ? $variables['page']['content'] : [];
-    foreach ($content_blocks as $key => $block) {
-      // Skip render metadata keys.
-      if (strpos($key, '#') === 0) {
-        continue;
-      }
-
-      // Skip the node content block.
-      if (strpos($key, '_content') !== false || $key === 'content' || $key === 'system_main') {
-        unset($variables['page']['content'][$key]);
-        continue;
-      }
-
-      // Also check for node entity type.
-      if (isset($block['#node']) || (isset($block['#entity_type']) && $block['#entity_type'] === 'node')) {
-        unset($variables['page']['content'][$key]);
-        continue;
-      }
-    }
-
-    // For no sidebar, we only need to render paragraphs in page.content.
+    // No sidebar case
+    // For no sidebar, render blocks and paragraphs in page.content.
     $paragraphs = [];
     if ($node->hasField('field_paragraph')) {
       foreach ($node->get('field_paragraph')->referencedEntities() as $paragraph) {
@@ -203,10 +207,25 @@ function illinois_framework_theme_stable9_preprocess_page(array &$variables): vo
       }
     }
 
+    // Add preserved blocks back to page.content with their original weights.
+    foreach ($preserved_blocks as $key => $block) {
+      $variables['page']['content'][$key] = $block;
+      // Keep the block's original weight from Block UI
+    }
+
+    // Add body with a special flag so template knows to wrap it.
+    if (!empty($body_render)) {
+      $variables['page']['content']['body'] = $body_render;
+      $variables['page']['content']['body']['#weight'] = 0;
+      $variables['page']['content']['body']['#needs_page_width'] = TRUE;
+    }
+
+    // Add paragraphs with high weights to ensure they come after body.
     $paragraph_view_builder = \Drupal::entityTypeManager()->getViewBuilder('paragraph');
+    $para_weight = 100;
     foreach ($paragraphs as $i => $para) {
       $variables['page']['content']['paragraph_' . $i] = $paragraph_view_builder->view($para, 'default');
-      $variables['page']['content']['paragraph_' . $i]['#weight'] = 100 + $i;
+      $variables['page']['content']['paragraph_' . $i]['#weight'] = $para_weight++;
     }
 
     return;
@@ -242,48 +261,6 @@ function illinois_framework_theme_stable9_preprocess_page(array &$variables): vo
   $render_full = [];
   foreach ($full_paragraphs as $p) {
     $render_full[] = $paragraph_view_builder->view($p, 'default');
-  }
-
-  // Render the node body if it exists (respecting display settings).
-  $body_render = [];
-  if ($node->hasField('body') && !$node->get('body')->isEmpty()) {
-    // Load the display settings for the 'default' view mode.
-    $view_display = \Drupal::entityTypeManager()
-      ->getStorage('entity_view_display')
-      ->load('node.content_page.default');
-
-    if ($view_display && $view_display->getRenderer('body')) {
-      // Build render array using those display settings.
-      $body_render = $view_display->getRenderer('body')->view($node->get('body'), ['label' => 'hidden']);
-    }
-  }
-
-  // Extract blocks from page.content and remove the node.
-  $content_blocks = isset($variables['page']['content']) ? $variables['page']['content'] : [];
-  $preserved_blocks = [];
-
-  foreach ($content_blocks as $key => $block) {
-    // Skip render metadata keys.
-    if (strpos($key, '#') === 0) {
-      continue;
-    }
-
-    // Skip the node content block - it's typically named with 'content' in the key.
-    // Common patterns: 'content', '{theme}_content', 'system_main'
-    if (strpos($key, '_content') !== false || $key === 'content' || $key === 'system_main') {
-      unset($variables['page']['content'][$key]);
-      continue;
-    }
-
-    // Also check for node entity type.
-    if (isset($block['#node']) || (isset($block['#entity_type']) && $block['#entity_type'] === 'node')) {
-      unset($variables['page']['content'][$key]);
-      continue;
-    }
-
-    $preserved_blocks[$key] = $block;
-    // Also remove from original content region.
-    unset($variables['page']['content'][$key]);
   }
 
   // Build a container for main content (body + sidebar paragraphs).

@@ -73,14 +73,20 @@
         {# Full-width paragraphs appear outside the columns #}
           {{ page.full_width_paragraphs }}
       {% else %}
-        {# if there is no sidebar #}
-        {% if page.body_content %}
-          <ilw-content width="page">
-            {{ page.body_content }}
-          </ilw-content>
-        {% endif %}
-          {{ page.content }}
+        {# No sidebar - render everything from page.content, wrapping body with page width #}
+        {% for key, item in page.content %}
+          {% if key starts with '#' %}
+            {# Skip metadata #}
+          {% elseif item['#needs_page_width'] is defined and item['#needs_page_width'] %}
+            <ilw-content width="page">
+              {{ item }}
+            </ilw-content>
+          {% else %}
+            {{ item }}
+          {% endif %}
+        {% endfor %}
       {% endif %}
+
 
     </main>
 
